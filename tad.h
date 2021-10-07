@@ -94,34 +94,20 @@ bool isFree(struct disco *hd, int tam, char un)
 	return espLivre >= tam;
 }
 
-bool insere(struct disco *hd, char *nomeArq, int tam, char un /*, FILE *arq*/)
+bool espSeq(struct disco *hd, int tam)
 {
-	//primeiro verifica se o arquivo no existe
+	return true;
+}
+
+bool insere(struct disco *hd, char *nomeArq, int tam, char un)
+{
 	converteKb(&tam, un);
-	//fprintf(arq, "[%d]\n", tam);
-
-	Celula *ptrCel;
-	Arq    *ptrArq;
-	
-	if(isFree(hd, tam, un))
+	if (isFree(hd, tam, un))
 	{
-		int sizebuff;
-
-
-		if (ptrArq->nome[0] == '\0')
+		if (espSeq(hd, tam))
 		{
-			ptrCel->arq;
-			
-			while(tam > 0)
-			{
-					
-			}
+			return true;
 		}
-		else
-		{
-
-		}
-		return true;
 	}
 	return false;
 }
