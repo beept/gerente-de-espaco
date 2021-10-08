@@ -80,9 +80,9 @@ void redefineCelulas(struct disco *hd, int tam, char un)
 	}
 }
 
-bool isFree(struct disco *hd, int tam, char un)
+bool estaLivre(struct disco *hd, int tam)
 {
-	converteKb(&tam, un);
+	//converteKb(&tam, un);
 	int espLivre = 0;
 
 	while(hd != NULL && espLivre < tam)
@@ -94,24 +94,65 @@ bool isFree(struct disco *hd, int tam, char un)
 	return espLivre >= tam;
 }
 
-bool espSeq(struct disco *hd, int tam)
+bool temEspSeq(struct disco *hd, int tam, Celula **setor, Arq **arqCabeca)
 {
-	return true;
+	int espacoSeq = 0;
+
+	*setor = hd;
+	*arqCabeca = hd->arq;
+
+	while (hd != NULL && espacoSeq < tam)
+	{
+		if(hd->arq == NULL)
+			espacoSeq += hd->celulaCapacidade;
+		else
+		{
+			espacoSeq += hd->espacoLivre;
+
+			if (espacoSeq < tam)
+			{
+				espacoSeq = hd->espacoLivre;
+
+				if (hd->espacoLivre == 0 && hd->prox != NULL)
+				{
+					*setor = hd->prox;
+					*arqCabeca = hd->prox->arq;
+				}
+				else
+				{
+					*setor = hd;
+					*arqCabeca = hd->arq;
+					while( (*arqCabeca)->prox != NULL)
+						*arqCabeca = (*arqCabeca)->prox;
+				}
+			}
+		}
+		hd = hd->prox;
+	}
+	
+	return espacoSeq >= tam;
 }
 
 bool insere(struct disco *hd, char *nomeArq, int tam, char un)
 {
 	converteKb(&tam, un);
-	if (isFree(hd, tam, un))
+
+	if (estaLivre(hd, tam))
 	{
-		if (espSeq(hd, tam))
+		Celula *celuInsercao;
+		Arq 	 *arqInsercao;
+		
+		if (temEspSeq(hd, tam, &celuInsercao, &arqInsercao))
 		{
+			if (celuInsercao->arq == arqInsercao)
+			{
+				//Inserção
+			}
 			return true;
 		}
 	}
 	return false;
 }
-
 
 void remove() {
 
