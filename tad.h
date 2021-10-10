@@ -75,13 +75,11 @@ void redefineCelulas(struct disco *hd, int tam, char un)
 bool estaLivre(struct disco *hd, int tam)
 {
 	int espLivre = 0;
-
 	while (hd != NULL && espLivre < tam)
 	{
 		espLivre += hd->espacoLivre;
 		hd = hd->prox;
 	}
-
 	return espLivre >= tam;
 }
 /*
@@ -216,25 +214,12 @@ bool insere(struct disco *hd, char *nomeArq, int tam, char un)
 
 void propriedades(struct disco *hd, char *buffstring)
 {
-
 	*buffstring = '\0';
-
 	double result;
 
 	while (hd != NULL)
 	{
 		result = (double)hd->espacoLivre / hd->celulaCapacidade;
-
-		/*
-		printf("espacoLivre: %d\n", hd->espacoLivre);
-		printf("celulaCapacidade: %d\n", hd->celulaCapacidade);
-
-		printf("Result: %lf\n", result);
-
-		getc(stdin);
-		getc(stdin);
-		getc(stdin);
-		*/
 
 		if (result <= 0.25)
 			strcat(buffstring, "[#]");
@@ -249,29 +234,6 @@ void propriedades(struct disco *hd, char *buffstring)
 
 void deleta(struct disco *hd, char *nomeArq)
 {
-	/*
-	Arq *aux;
-	Celula *hdAux = hd;
-	while (hdAux != NULL)
-	{
-		printf("\nespacoLivre: %d\n", hdAux->espacoLivre);
-		printf("celulaCapacidade: %d\n", hdAux->celulaCapacidade);
-
-		aux = hdAux->arq;
-
-		while (aux != NULL)
-		{
-			printf("		nome: %s\n", aux->nome);
-			printf("		tam: %d\n", aux->tamanho);
-			printf("		tamFrag: %d\n", aux->tamanhoFragmento);
-			aux = aux->prox;
-		}
-		hdAux = hdAux->prox;
-	}
-	getc(stdin);
-	getc(stdin);
-	*/
-
 	Arq *auxArq = NULL;
 	Arq *auxArqAnt = NULL;
 
@@ -341,7 +303,6 @@ void otimiza(struct disco *hd)
 {
 	if (estaFragmentado(hd))
 	{
-		//printf("Ok");
 		Arq *tempArq;
 		Celula *tempCell = hd;
 		int tamCelula = hd->celulaCapacidade;
@@ -380,4 +341,29 @@ void destroiDisco(Celula **hd)
 		free(*hd);
 		*hd = NULL;
 	}
+}
+
+void bonus(struct disco *hd)
+{
+	Arq *aux;
+	Celula *hdAux = hd;
+	int i = 1;
+	int j;
+	while (hdAux != NULL)
+	{
+		printf("\nCelula[%d] Capacidade: %dKB\n", i++, hdAux->celulaCapacidade);
+		printf("espacoLivre: %dKB\n", hdAux->espacoLivre);
+
+		aux = hdAux->arq;
+		j = 1;
+		while (aux != NULL)
+		{
+			printf("		[%d] nome: %s\n", j++, aux->nome);
+			printf("		tam: %dKB\n", aux->tamanho);
+			printf("		tamFrag: %dKB\n", aux->tamanhoFragmento);
+			aux = aux->prox;
+		}
+		hdAux = hdAux->prox;
+	}
+	getc(stdin);
 }

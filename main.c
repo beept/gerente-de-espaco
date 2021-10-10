@@ -11,8 +11,7 @@ typedef enum
 #include "listaDupEnc_otimiza.h"
 #include "tad.h"
 
-
-//MAIN VERSION
+//VERSAO LEITURA SEM ARQUIVO
 
 void main(void)
 {
@@ -39,12 +38,12 @@ void main(void)
 		while (maxOperacao)
 		{
 			scanf("%s", &operacao); //insere
-			scanf("%s", &nomeArq);  //arq3
+			scanf("%s", &nomeArq);	//arq3
 
 			if (!strcmp(operacao, "insere"))
 			{
 				scanf("%d", &tamanho); //2
-				scanf("%cB", &un);     //M
+				scanf("%cB", &un);		 //M
 
 				if (!falhaInsercao)
 				{
@@ -70,42 +69,6 @@ void main(void)
 		}
 		else
 			puts("ERRO: disco cheio");
-
-		
-
-		
-		Arq *aux;
-		Celula *hdAux = hd;
-		int i = 1;
-		int j;
-		while (hdAux != NULL)
-		{
-			printf("\nCelula[%d] Capacidade: %dKB\n", i++, hdAux->celulaCapacidade);
-			printf("espacoLivre: %dKB\n", hdAux->espacoLivre);
-		
-			aux = hdAux->arq;
-			j = 1;
-			while (aux != NULL)
-			{
-				printf("		[%d] nome: %s\n", j++, aux->nome);
-				printf("		tam: %dKB\n", aux->tamanho);
-				printf("		tamFrag: %dKB\n", aux->tamanhoFragmento);
-				aux = aux->prox;
-			}
-			hdAux = hdAux->prox;
-		}
-
-		getc(stdin);
-		getc(stdin);
-		getc(stdin);
-		getc(stdin);
-		getc(stdin);
-		getc(stdin);
-		getc(stdin);
-		getc(stdin);
-		getc(stdin);
-		getc(stdin);
-		
 
 		formataDisco(hd);
 		scanf("%d", &maxOperacao);
