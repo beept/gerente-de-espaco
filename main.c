@@ -11,7 +11,7 @@ typedef enum
 #include "listaDupEnc_otimiza.h"
 #include "tad.h"
 
-//VERSAO LEITURA SEM ARQUIVO
+//VERSAO LEITURA COM ARQUIVO
 
 void main(void)
 {
