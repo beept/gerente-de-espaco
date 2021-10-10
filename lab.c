@@ -1,19 +1,26 @@
-# include <stdio.h>
-# include <string.h>
+#include <stdio.h>
+#include <string.h>
 
+typedef enum
+{
+	true = 1,
+	false = 0,
+} bool;
 
-void propriedades(char *buff) {	
+void propriedades(char *buff)
+{
   *buff = '\0';
-  for(int i = 0; i < 8; i++)
+  for (int i = 0; i < 8; i++)
   {
     strcat(buff, "[#]");
   }
 }
 
-void propriedades2(char *buff) {	
+void propriedades2(char *buff)
+{
   *buff = '\0';
 
-  for(int i = 0; i < 8; i++)
+  for (int i = 0; i < 8; i++)
   {
     strcat(buff, "[-]");
   }
@@ -30,7 +37,7 @@ int main()
   propriedades2(buff);
   printf("2-%s\n", buff);
   printf("Len: %d\n", strlen("[C][C][C][C][C][C][C][C]"));
-  */
+  
   int x = 512;
   int y = 2048;
 
@@ -45,4 +52,11 @@ int main()
   result = x / y;
   printf("%lf\n", result);
   return 0;
+
+  */
+ if(NULL == false)
+  puts("Sim e");
+
+
+ return 0;
 }

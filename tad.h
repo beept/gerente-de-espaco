@@ -1,11 +1,3 @@
-typedef enum
-{
-	true = 1,
-	false = 0,
-} bool;
-
-#include "fila_otimiza.h"
-
 typedef struct arquivo
 {
 	char nome[11];
@@ -66,7 +58,6 @@ Arq *criaArq(const char *nome, int tam, int tamFrag, Arq *prox)
 	novoArq->prox = prox;
 	return novoArq;
 }
-
 
 void redefineCelulas(struct disco *hd, int tam, char un)
 {
@@ -146,7 +137,7 @@ bool temEspSeq(struct disco *hd, int tam, Celula **setor, Arq **arqCabeca)
 	while (hd != NULL && espacoSeq < tam)
 	{
 		espacoSeq += hd->espacoLivre;
-		
+
 		if (hd->arq != NULL)
 		{
 			espacoSeq = hd->espacoLivre;
@@ -182,7 +173,7 @@ bool insere(struct disco *hd, char *nomeArq, int tam, char un)
 
 	if (estaLivre(hd, tam))
 	{
-		Arq 	 *arqInsercao = NULL;
+		Arq *arqInsercao = NULL;
 		Celula *celuInsercao = NULL;
 		//											101							202
 		if (temEspSeq(hd, tam, &celuInsercao, &arqInsercao))
@@ -197,7 +188,7 @@ bool insere(struct disco *hd, char *nomeArq, int tam, char un)
 
 				if (auxTamFrag <= 0)
 				{
-						//Arq *criaArq(const char *nome, int tam, int tamFrag, Arq *prox)
+					//Arq *criaArq(const char *nome, int tam, int tamFrag, Arq *prox)
 					if (celuInsercao->arq == NULL)
 						celuInsercao->arq = criaArq(nomeArq, tam, tempFrag, arqInsercao);
 					else
@@ -233,7 +224,7 @@ void propriedades(struct disco *hd, char *buffstring)
 	while (hd != NULL)
 	{
 		result = (double)hd->espacoLivre / hd->celulaCapacidade;
-		
+
 		/*
 		printf("espacoLivre: %d\n", hd->espacoLivre);
 		printf("celulaCapacidade: %d\n", hd->celulaCapacidade);
@@ -247,11 +238,10 @@ void propriedades(struct disco *hd, char *buffstring)
 
 		if (result <= 0.25)
 			strcat(buffstring, "[#]");
-		else 
-			if (result <= 0.75)
-				strcat(buffstring, "[-]");
-			else
-				strcat(buffstring, "[ ]");
+		else if (result <= 0.75)
+			strcat(buffstring, "[-]");
+		else
+			strcat(buffstring, "[ ]");
 
 		hd = hd->prox;
 	}
@@ -284,7 +274,7 @@ void deleta(struct disco *hd, char *nomeArq)
 
 	Arq *auxArq = NULL;
 	Arq *auxArqAnt = NULL;
-	
+
 	while (hd != NULL)
 	{
 		auxArq = hd->arq;
@@ -319,7 +309,7 @@ void deleta(struct disco *hd, char *nomeArq)
 
 void formataCelula(Arq **arqui)
 {
-	if(*arqui != NULL)
+	if (*arqui != NULL)
 	{
 		formataCelula(&(*arqui)->prox);
 		free(*arqui);
@@ -339,21 +329,48 @@ void formataDisco(struct disco *hd)
 
 bool estaFragmentado(struct disco *hd)
 {
-	while (1/* condition */)
+	while (false /* condition */)
 	{
 		/* code */
+		puts("pass");
 	}
+	return true;
 }
 
 void otimiza(struct disco *hd)
 {
 	if (estaFragmentado(hd))
 	{
+		//printf("Ok");
+		Arq *tempArq;
+		Celula *tempCell = hd;
+		int tamCelula = hd->celulaCapacidade;
 
+		descritor lista;
+		init(&lista);
+
+		while (tempCell != NULL)
+		{
+			tempArq = tempCell->arq;
+			while (tempArq != NULL)
+			{
+				if (!buscaInfo(lista, tempArq->nome))
+					insereApos(&lista, tempArq->nome, tempArq->tamanho);
+				tempArq = tempArq->prox;
+			}
+			tempCell = tempCell->prox;
+		}
+
+		formataDisco(hd);
+		redefineCelulas(hd, tamCelula * 8, 'K');
+
+		while (!estaVazio(lista))
+		{
+			insere(hd, lista.primeiroNodo->nome, lista.primeiroNodo->tamanho, 'K');
+			removeNodo(&lista, lista.primeiroNodo->nome);
+		}
 	}
 }
-
-
 
 void destroiDisco(Celula **hd)
 {
@@ -364,4 +381,3 @@ void destroiDisco(Celula **hd)
 		*hd = NULL;
 	}
 }
-

@@ -1,7 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+typedef enum
+{
+	true = 1,
+	false = 0,
+} bool;
+
+#include "listaDupEnc_otimiza.h"
 #include "tad.h"
+
 
 //MAIN VERSION
 
@@ -64,23 +73,23 @@ void main(void)
 
 		
 
-		/*
+		
 		Arq *aux;
 		Celula *hdAux = hd;
 		int i = 1;
 		int j;
 		while (hdAux != NULL)
 		{
-			printf("\n[%d] espacoLivre: %d\n", i++, hdAux->espacoLivre);
-			printf("celulaCapacidade: %d\n", hdAux->celulaCapacidade);
-
+			printf("\nCelula[%d] Capacidade: %dKB\n", i++, hdAux->celulaCapacidade);
+			printf("espacoLivre: %dKB\n", hdAux->espacoLivre);
+		
 			aux = hdAux->arq;
 			j = 1;
 			while (aux != NULL)
 			{
 				printf("		[%d] nome: %s\n", j++, aux->nome);
-				printf("		tam: %d\n", aux->tamanho);
-				printf("		tamFrag: %d\n", aux->tamanhoFragmento);
+				printf("		tam: %dKB\n", aux->tamanho);
+				printf("		tamFrag: %dKB\n", aux->tamanhoFragmento);
 				aux = aux->prox;
 			}
 			hdAux = hdAux->prox;
@@ -96,7 +105,7 @@ void main(void)
 		getc(stdin);
 		getc(stdin);
 		getc(stdin);
-		*/
+		
 
 		formataDisco(hd);
 		scanf("%d", &maxOperacao);
