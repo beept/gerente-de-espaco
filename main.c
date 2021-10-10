@@ -29,13 +29,13 @@ void main(void)
 
 		while (maxOperacao)
 		{
-			scanf("%s", &operacao);
-			scanf("%s", &nomeArq);
+			scanf("%s", &operacao); //insere
+			scanf("%s", &nomeArq);  //arq3
 
 			if (!strcmp(operacao, "insere"))
 			{
-				scanf("%d", &tamanho);
-				scanf("%cB", &un);
+				scanf("%d", &tamanho); //2
+				scanf("%cB", &un);     //M
 
 				if (!falhaInsercao)
 				{
@@ -43,7 +43,7 @@ void main(void)
 
 					if (falhaInsercao)
 					{
-						otimiza();
+						otimiza(hd);
 						falhaInsercao = !insere(hd, nomeArq, tamanho, un);
 					}
 				}
@@ -62,15 +62,44 @@ void main(void)
 		else
 			puts("ERRO: disco cheio");
 
-		getc(stdin);
-		getc(stdin);
-		getc(stdin);
-		getc(stdin);
-		getc(stdin);
-		getc(stdin);
+		
 
-		formataDisco();
+		/*
+		Arq *aux;
+		Celula *hdAux = hd;
+		int i = 1;
+		int j;
+		while (hdAux != NULL)
+		{
+			printf("\n[%d] espacoLivre: %d\n", i++, hdAux->espacoLivre);
+			printf("celulaCapacidade: %d\n", hdAux->celulaCapacidade);
+
+			aux = hdAux->arq;
+			j = 1;
+			while (aux != NULL)
+			{
+				printf("		[%d] nome: %s\n", j++, aux->nome);
+				printf("		tam: %d\n", aux->tamanho);
+				printf("		tamFrag: %d\n", aux->tamanhoFragmento);
+				aux = aux->prox;
+			}
+			hdAux = hdAux->prox;
+		}
+
+		getc(stdin);
+		getc(stdin);
+		getc(stdin);
+		getc(stdin);
+		getc(stdin);
+		getc(stdin);
+		getc(stdin);
+		getc(stdin);
+		getc(stdin);
+		getc(stdin);
+		*/
+
+		formataDisco(hd);
 		scanf("%d", &maxOperacao);
 	}
-	destroiDisco();
+	destroiDisco(&hd);
 }

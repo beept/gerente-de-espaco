@@ -21,6 +21,7 @@ void propriedades2(char *buff) {
 
 int main()
 {
+  /*
   char buff[25] = "";
   
   propriedades(buff);
@@ -29,5 +30,19 @@ int main()
   propriedades2(buff);
   printf("2-%s\n", buff);
   printf("Len: %d\n", strlen("[C][C][C][C][C][C][C][C]"));
+  */
+  int x = 512;
+  int y = 2048;
+
+  double result = (double) x / y; 
+  printf("%lf\n", result);
+
+  x = 1024;
+  result = (double) x / y;
+  printf("%lf\n", result);
+
+  x = 513;
+  result = x / y;
+  printf("%lf\n", result);
   return 0;
 }
