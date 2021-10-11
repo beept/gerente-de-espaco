@@ -93,12 +93,11 @@ void removeNodo(descritor *desc, char *nomeArq)
   }
 }
 
-
 void display(descritor desc)
-{   printf("\n");
-    while (desc.primeiroNodo != NULL) {
-        printf("[%s][%d]", desc.primeiroNodo->nome, desc.primeiroNodo->tamanho);
-        desc.primeiroNodo = desc.primeiroNodo->prox;
-    }
-    putchar('\n');
+{
+  while (desc.primeiroNodo != NULL)
+  {
+    printf("[%s][%d]\n", desc.primeiroNodo->nome, desc.primeiroNodo->tamanho);
+    desc.primeiroNodo = desc.primeiroNodo->prox;
+  }
 }

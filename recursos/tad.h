@@ -82,6 +82,7 @@ bool estaLivre(struct disco *hd, int tam)
 	}
 	return espLivre >= tam;
 }
+
 /*
 bool temEspSeq(struct disco *hd, int tam, Celula **setor, Arq **arqCabeca)
 {
@@ -92,7 +93,6 @@ bool temEspSeq(struct disco *hd, int tam, Celula **setor, Arq **arqCabeca)
 
 	while (hd != NULL && espacoSeq < tam)
 	{
-
 		if (hd->arq == NULL)
 			espacoSeq += hd->celulaCapacidade;
 		else
@@ -117,14 +117,13 @@ bool temEspSeq(struct disco *hd, int tam, Celula **setor, Arq **arqCabeca)
 				}
 			}
 		}
-
-
 		hd = hd->prox;
 	}
 	return espacoSeq >= tam;
 }
 */
 
+//refatorar
 bool temEspSeq(struct disco *hd, int tam, Celula **setor, Arq **arqCabeca)
 {
 	int espacoSeq = 0;
@@ -345,6 +344,7 @@ void destroiDisco(Celula **hd)
 
 void bonus(struct disco *hd)
 {
+	char c;
 	Arq *aux;
 	Celula *hdAux = hd;
 	int i = 1;
@@ -365,5 +365,11 @@ void bonus(struct disco *hd)
 		}
 		hdAux = hdAux->prox;
 	}
-	getc(stdin);
+	
+	printf("\n----------------------------------\nTecla [Q] para sair: ");
+
+	c = toupper(getch());
+	while (c != 'Q')
+		c = toupper(getch());
+	printf("\n----------------------------------\n\n\n");
 }

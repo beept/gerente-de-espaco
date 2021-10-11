@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
+
+#ifdef __linux__
+	#include "recursos/getchForLinux.h"
+#else
+	#include <conio.h>
+#endif
 
 typedef enum
 {
@@ -8,70 +15,91 @@ typedef enum
 	false = 0,
 } bool;
 
-#include "listaDupEnc_otimiza.h"
-#include "tad.h"
+#include "recursos/listaDupEnc_otimiza.h"
+#include "recursos/tad.h"
 
 //VERSAO LEITURA COM ARQUIVO
 
 void main(void)
 {
-	bool falhaInsercao = false;
-	char operacao[8];
-	char nomeArq[11];
-	char buff[25] = "";
-	char un;
-
-	int maxOperacao;
-	int tamanho;
-	int qtEntradas;
-
-	struct disco *hd;
-	criaDisco(&hd);
-
-	scanf("%d", &maxOperacao);
-	while (maxOperacao)
+	FILE *input = fopen("entrada_dados.txt", "r");
+	if (input != NULL)
 	{
-		scanf("%d ", &tamanho);
-		scanf("%cB", &un);
-		redefineCelulas(hd, tamanho, un);
+		bool falhaInsercao;
+		char operacao[8];
+		char nomeArq[11];
+		char buff[25] = "";
+		char un;
 
+		int maxOperacao;
+		int tamanho;
+
+		struct disco *hd;
+		criaDisco(&hd);
+
+		//scanf("%d", &maxOperacao);
+		fscanf(input, "%d", &maxOperacao);
 		while (maxOperacao)
 		{
-			scanf("%s", &operacao); //insere
-			scanf("%s", &nomeArq);	//arq3
+			//scanf("%d ", &tamanho);
+			//scanf("%cB", &un);
+			fscanf(input, "%d%cB", &tamanho, &un);
 
-			if (!strcmp(operacao, "insere"))
+			redefineCelulas(hd, tamanho, un);
+
+			falhaInsercao = false;
+			while (maxOperacao)
 			{
-				scanf("%d", &tamanho); //2
-				scanf("%cB", &un);		 //M
+				//scanf("%s", &operacao); 
+				//scanf("%s", &nomeArq);
+				fscanf(input, "%s %s", &operacao, &nomeArq);
 
-				if (!falhaInsercao)
+				if (!strcmp(operacao, "insere"))
 				{
-					falhaInsercao = !insere(hd, nomeArq, tamanho, un);
+					//scanf("%d", &tamanho);
+					//scanf("%cB", &un);
+					fscanf(input, "%d%cB", &tamanho, &un);
 
-					if (falhaInsercao)
+					if (!falhaInsercao)
 					{
-						otimiza(hd);
 						falhaInsercao = !insere(hd, nomeArq, tamanho, un);
+
+						if (falhaInsercao)
+						{
+							otimiza(hd);
+							falhaInsercao = !insere(hd, nomeArq, tamanho, un);
+						}
 					}
 				}
+				else if (!falhaInsercao && !strcmp(operacao, "remove"))
+					deleta(hd, nomeArq);
+
+				maxOperacao--;
 			}
-			else if (!falhaInsercao && !strcmp(operacao, "remove"))
-				deleta(hd, nomeArq);
 
-			maxOperacao--;
+			if (!falhaInsercao)
+			{
+				propriedades(hd, buff);
+				printf("%s", buff);
+			}
+			else
+				printf("ERRO: disco cheio\t");
+			
+			printf("\tExibir disco? [S][N]: ");
+			if(toupper(getche()) == 'S')
+				bonus(hd);
+			putchar('\n');
+
+
+			formataDisco(hd);
+			//scanf("%d", &maxOperacao);
+			fscanf(input, "%d", &maxOperacao);
 		}
-
-		if (!falhaInsercao)
-		{
-			propriedades(hd, buff);
-			printf("%s\n", buff);
-		}
-		else
-			puts("ERRO: disco cheio");
-
-		formataDisco(hd);
-		scanf("%d", &maxOperacao);
+		destroiDisco(&hd);
+		fclose(input);
 	}
-	destroiDisco(&hd);
+	else
+		perror("ErroMsg");
+	getch();
+	return 0;
 }
