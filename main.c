@@ -84,10 +84,11 @@ void main(void)
 			}
 			else
 				printf("ERRO: disco cheio\t");
-			
+			/*
 			printf("\tExibir disco? [S][N]: ");
 			if(toupper(getche()) == 'S')
 				bonus(hd);
+			*/
 			putchar('\n');
 
 
@@ -101,5 +102,5 @@ void main(void)
 	else
 		perror("ErroMsg");
 	getch();
-	return 0;
+	//return 0;
 }

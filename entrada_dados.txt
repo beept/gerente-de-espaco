@@ -1,65 +1,7 @@
-3
-8KB
-insere arq0001 7KB
-insere arq0002 3MB
-remove arq0001
-6
-8MB
-insere arq0001 4MB
-insere arq0002 1MB
-insere arq0003 512KB
-remove arq0001
-remove arq0001
-insere arq0001 5MB
-6
-8KB
-insere arq1 2KB
-insere arq2 1KB
-insere arq3 1KB
-remove arq1
-remove arq2
-insere arq4 1KB
 4
 16MB
 insere a1 2MB
 insere a2 512KB
 insere a3 2MB
 remove a2
-4
-16MB
-insere a1 2MB
-insere a2 513KB
-insere a3 2MB
-remove a2
-24
-16KB
-insere aaaaaaaaaa 1KB
-insere bbbbbbbbbb 1KB
-insere cccccccccc 1KB
-insere dddddddddd 1KB
-insere eeeeeeeeee 1KB
-insere ffffffffff 1KB
-insere gggggggggg 1KB
-insere hhhhhhhhhh 1KB
-insere aaaaaaaaa1 1KB
-insere bbbbbbbbb1 1KB
-insere ccccccccc1 1KB
-insere ddddddddd1 1KB
-insere eeeeeeeee1 1KB
-insere fffffffff1 1KB
-insere ggggggggg1 1KB
-insere hhhhhhhhh1 1KB
-remove aaaaaaaaa1
-remove ccccccccc1
-remove eeeeeeeee1
-remove ggggggggg1
-remove aaaaaaaaaa
-remove cccccccccc
-remove eeeeeeeeee
-remove gggggggggg
-3
-8KB
-insere arq0001 7KB
-insere arq0002 3MB
-remove arq0001
 0
